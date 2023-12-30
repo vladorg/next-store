@@ -12,7 +12,7 @@ export const AdminCategoriesEditView = ({ data }: { data: iCategory}) => {
   const inputClassNames = 'w-full rounded-md bg-white p-2 text-base font-medium text-black outline-none focus:border-[#6A64F1] focus:shadow-md';
 
   const { title, description, thumb, _id, slug, status  } = data;
-  const thumbPath = thumb?.includes('category') ? thumb : '/static/category.png';
+  const thumbPath = thumb?.includes('i.ibb.co') ? thumb : '/static/category.png';
 
   const actionHandler = async (formData: FormData) => {
     const result = await updateCategoryAction(_id, formData);    
