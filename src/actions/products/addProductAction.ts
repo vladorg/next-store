@@ -42,7 +42,7 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
     }) as iProduct;
 
     if (thumb?.size) {
-      const savePath = path.join("./public/" + thumbName);
+      const savePath = path.resolve("./public/" + thumbName);
 
       //await thumbSaveService(thumb, thumbName, 'products');
       await thumbSaveServiceTest(thumb, savePath)
