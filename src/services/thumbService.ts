@@ -5,7 +5,8 @@ export const thumbGeneratePathService = (thumb: any, path: string): { thumbName:
   try {
     const ext = thumb.type == 'image/jpeg' ? '.jpg' : '.png';
     const thumbName = `${Date.now() + ext}`;
-    const thumbPath = `${__HOST}/static/${path}/${thumbName}`;
+    //const thumbPath = `${__HOST}/static/${path}/${thumbName}`;
+    const thumbPath = `/static/${path}/${thumbName}`;
 
     return { thumbName, thumbPath }
   } catch(err) {
@@ -20,6 +21,20 @@ export const thumbSaveService = async (thumb: any, thumbName: string, path: stri
     const buffer = Buffer.from(bytes)
 
     await writeFile(`public/static/${path}/${thumbName}`, buffer)
+
+    console.log('File save is succefull!');    
+    
+  } catch(err) {
+    console.log(err); 
+  }
+}
+
+export const thumbSaveServiceTest = async (thumb: any, path: string): Promise<void> => {
+  try {
+    const bytes = await thumb.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+
+    await writeFile(path, buffer)
 
     console.log('File save is succefull!');    
     

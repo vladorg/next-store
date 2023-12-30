@@ -3,9 +3,10 @@
 import { __HOST } from "@/config"
 import { DB_CONNECT } from "@/db"
 import ProductsModel from '@/db/models/ProductsModel'
-import { thumbGeneratePathService, thumbSaveService } from "@/services/thumbService"
+import { thumbGeneratePathService, thumbSaveService, thumbSaveServiceTest } from "@/services/thumbService"
 import { iProduct } from "@/types"
 import { revalidatePath } from "next/cache"
+import path from "path";
 
 export const addProductAction = async (data: FormData): Promise<iProduct | undefined> => {
   try {
@@ -41,7 +42,11 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
     }) as iProduct;
 
     if (thumb?.size) {
-      await thumbSaveService(thumb, thumbName, 'products');
+      const savePath = path.join(process.cwd(), "public/static/products/" + thumbName);
+      console.log(savePath);
+      
+      //await thumbSaveService(thumb, thumbName, 'products');
+      await thumbSaveServiceTest(thumb, savePath)
     }
 
     const newProduct = JSON.parse(JSON.stringify(req));    
