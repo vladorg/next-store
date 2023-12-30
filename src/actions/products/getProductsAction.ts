@@ -3,8 +3,6 @@ import ProductsModel from '@/db/models/ProductsModel'
 import { iProduct } from "@/types"
 import { revalidatePath } from "next/cache";
 
-export const dynamic = 'force-dynamic';
-
 export const getProductsAction = async (): Promise<iProduct[] | undefined> => {
   try {
     await DB_CONNECT();      
