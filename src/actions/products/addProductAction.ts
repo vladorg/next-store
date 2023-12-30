@@ -27,7 +27,7 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
       if (save) {
         productThumb = save.data.display_url;
       }
-    }    
+    }
 
     const req = await ProductsModel.create({
       title,

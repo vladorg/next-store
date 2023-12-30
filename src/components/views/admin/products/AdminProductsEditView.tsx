@@ -1,6 +1,5 @@
 'use client'
 
-import { addProductAction } from "@/actions/products/addProductAction";
 import { updateProductAction } from "@/actions/products/updateProductAction";
 import { iCategory, iProduct } from "@/types";
 import Link from "next/link";
