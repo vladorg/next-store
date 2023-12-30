@@ -11,7 +11,7 @@ export const HomeView = () => {
         <h2 className="text-2xl font-bold">Featured products</h2>
       </div>
       <div>
-        <img src="src/uploads/products/product.png" alt="" />
+        <img src="/static/defaults/product.png" alt="" />
       </div>
       <div className="grid grid-cols-5 gap-6 mt-4">
         <ProductCard />
