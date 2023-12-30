@@ -3,7 +3,7 @@
 import { __HOST } from "@/config"
 import { DB_CONNECT } from "@/db"
 import ProductsModel from '@/db/models/ProductsModel'
-import { thumbGeneratePathService, thumbSaveService, thumbSaveServiceTest } from "@/services/thumbService"
+import { imageSaveService } from "@/services/imageSaveService"
 import { iProduct } from "@/types"
 import { revalidatePath } from "next/cache"
 import path from "path";
@@ -13,8 +13,7 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
     await DB_CONNECT();
 
     const { title, description, chars, categoryId, thumb, price, count, status, slug } = Object.fromEntries(data) as any;
-    let thumbName = 'product.png';
-    let thumbPath = `${__HOST}/static/defaults/${thumbName}`;
+    let productThumb = '/static/product.png';
 
     const candidate = await ProductsModel.findOne({ slug });
 
@@ -24,9 +23,11 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
     }    
 
     if (thumb?.size) {         
-      const { thumbName: newFileName, thumbPath: newThumbPath } = thumbGeneratePathService(thumb, 'products');
-      thumbPath = newThumbPath;
-      thumbName = newFileName;
+      const save = await imageSaveService(thumb);   
+
+      if (save) {
+        productThumb = save.data.display_url;
+      }
     }    
 
     const req = await ProductsModel.create({
@@ -34,19 +35,12 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
       description, 
       chars: chars || ' ', 
       categoryId: !!+categoryId || 'uncategorized', 
-      thumb: thumbPath, 
+      thumb: productThumb, 
       price, 
       count,
       status: !!+status,
       slug
     }) as iProduct;
-
-    if (thumb?.size) {
-      const savePath = path.resolve("./public/" + thumbName);
-
-      //await thumbSaveService(thumb, thumbName, 'products');
-      await thumbSaveServiceTest(thumb, savePath)
-    }
 
     const newProduct = JSON.parse(JSON.stringify(req));    
 
