@@ -20,6 +20,10 @@ export const thumbSaveService = async (thumb: any, thumbName: string, path: stri
     const buffer = Buffer.from(bytes)
 
     await writeFile(`./public/static/${path}/${thumbName}`, buffer)
+
+    console.log('log after writeFile')
+    console.log(thumb, thumbName, path);
+    
   } catch(err) {
     console.log(err); 
   }
