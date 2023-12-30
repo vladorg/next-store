@@ -2,10 +2,9 @@
 
 import { DB_CONNECT } from "@/db";
 import CategoriesModel from "@/db/models/CategoriesModel";
-import { thumbGeneratePathService, thumbSaveService } from "@/services/thumbService";
+import { imageSaveService } from "@/services/imageSaveService";
 import { iCategory } from "@/types";
 import { revalidatePath } from "next/cache";
-
 
 export const updateCategoryAction = async (id: string | undefined, data: any): Promise<iCategory | undefined> => {
   try {
@@ -14,8 +13,7 @@ export const updateCategoryAction = async (id: string | undefined, data: any): P
     await DB_CONNECT();
 
     const { title, description, slug, thumb, status } = Object.fromEntries(data) as any;
-    let thumbName = '';
-    let thumbPath = '';
+    let productThumb = '';
 
     const candidate = await CategoriesModel.findOne({ slug });
 
@@ -23,14 +21,15 @@ export const updateCategoryAction = async (id: string | undefined, data: any): P
       console.log('Slug is already exists!');
       
       return
-    }
-    
+    }    
 
     if (thumb?.size) {         
-      const { thumbName: newFileName, thumbPath: newThumbPath } = thumbGeneratePathService(thumb, 'categories');
-      thumbPath = newThumbPath;
-      thumbName = newFileName;
-    }    
+      const save = await imageSaveService(thumb);   
+
+      if (save) {
+        productThumb = save.data.display_url;
+      }
+    }   
 
     const payload: any = {
       title,
@@ -39,13 +38,9 @@ export const updateCategoryAction = async (id: string | undefined, data: any): P
       status: !!+status
     }
 
-    thumbPath ? payload.thumb = thumbPath : null;
+    productThumb ? payload.thumb = productThumb : null;
 
     const req = await CategoriesModel.findByIdAndUpdate(id, payload, { new: true }) as iCategory;
-
-    if (thumb?.size) {
-      await thumbSaveService(thumb, thumbName, 'categories');
-    }
 
     const updatedCategory = JSON.parse(JSON.stringify(req));    
 

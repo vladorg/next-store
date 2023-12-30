@@ -6,7 +6,6 @@ import ProductsModel from '@/db/models/ProductsModel'
 import { imageSaveService } from "@/services/imageSaveService"
 import { iProduct } from "@/types"
 import { revalidatePath } from "next/cache"
-import path from "path";
 
 export const addProductAction = async (data: FormData): Promise<iProduct | undefined> => {
   try {
