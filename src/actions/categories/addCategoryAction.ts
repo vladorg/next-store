@@ -1,5 +1,6 @@
 'use server'
 
+import { __HOST } from "@/config"
 import { DB_CONNECT } from "@/db"
 import CategoriesModel from "@/db/models/CategoriesModel"
 import { thumbGeneratePathService, thumbSaveService } from "@/services/thumbService"
@@ -12,7 +13,7 @@ export const addCategoryAction = async (data: FormData): Promise<iCategory | und
 
     const { title, description, slug, thumb, status } = Object.fromEntries(data) as any;
     let thumbName = 'category.png';
-    let thumbPath = `http://localhost:3000/static/defaults/${thumbName}`;
+    let thumbPath = `${__HOST}/static/defaults/${thumbName}`;
 
     const candidate = await CategoriesModel.findOne({ slug });
 

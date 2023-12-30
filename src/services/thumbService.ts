@@ -1,6 +1,5 @@
+import { __HOST } from "@/config";
 import { writeFile } from "fs/promises";
-
-const __HOST = process.env.NEXTAUTH_URL
 
 export const thumbGeneratePathService = (thumb: any, path: string) => {
   const ext = thumb.type == 'image/jpeg' ? '.jpg' : '.png';

@@ -1,5 +1,6 @@
 'use server'
 
+import { __HOST } from "@/config"
 import { DB_CONNECT } from "@/db"
 import ProductsModel from '@/db/models/ProductsModel'
 import { thumbGeneratePathService, thumbSaveService } from "@/services/thumbService"
@@ -12,7 +13,7 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
 
     const { title, description, chars, categoryId, thumb, price, count, status, slug } = Object.fromEntries(data) as any;
     let thumbName = 'product.png';
-    let thumbPath = `http://localhost:3000/static/defaults/${thumbName}`;
+    let thumbPath = `${__HOST}/static/defaults/${thumbName}`;
 
     const candidate = await ProductsModel.findOne({ slug });
 

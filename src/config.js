@@ -1,6 +1,8 @@
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from 'bcryptjs'
 
+export const __HOST = process.env.NEXTAUTH_URL;
+
 export const authOptions = {
   providers: [
     Credentials({
