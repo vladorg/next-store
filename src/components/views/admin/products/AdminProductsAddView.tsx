@@ -21,6 +21,7 @@ export const AdminProductsAddView = ({ data }: { data: iCategory[] | undefined }
       formRef.current?.reset()
     } else {
       toast.error('Failed add product!')
+      console.log(result);      
     }
   }  
 
