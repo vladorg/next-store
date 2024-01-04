@@ -3,6 +3,7 @@
 import { __HOST } from "@/config"
 import { DB_CONNECT } from "@/db"
 import CategoriesModel from "@/db/models/CategoriesModel"
+import { useCorrectUrl } from "@/hooks/useCorrectUrl"
 import { imageSaveService } from "@/services/imageSaveService"
 import { iCategory } from "@/types"
 import { revalidatePath } from "next/cache"
@@ -12,9 +13,10 @@ export const addCategoryAction = async (data: FormData): Promise<iCategory | und
     await DB_CONNECT();
 
     const { title, description, slug, thumb, status } = Object.fromEntries(data) as any;
+    const newSlug = useCorrectUrl(slug);
     let productThumb = '/static/category.png';
 
-    const candidate = await CategoriesModel.findOne({ slug });
+    const candidate = await CategoriesModel.findOne({ slug: newSlug });
 
     if (candidate) {
       console.log('Slug is already exists!');
@@ -32,14 +34,14 @@ export const addCategoryAction = async (data: FormData): Promise<iCategory | und
     const req = await CategoriesModel.create({
       title,
       description, 
-      slug, 
+      slug: newSlug, 
       thumb: productThumb,
       status: !!+status
     }) as iCategory;
 
     const newCategory = JSON.parse(JSON.stringify(req));    
 
-    revalidatePath('/admin/categories');
+    //revalidatePath('/admin/categories');
     
     return newCategory
   } catch(err) {

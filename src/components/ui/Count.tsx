@@ -27,7 +27,7 @@ export const Count = ({
 
   return (
     <div className={className}>
-      <label className="text-sm" htmlFor="count">Count:</label>
+      <label className="text-sm" htmlFor="count">Count: (max: {maxValue})</label>
       <div className="flex items-center mt-1">
           <button className="focus:outline-none flex justify-center items-center w-8 h-8 bg-[var(--primary-color)] hover:bg-[var(--hover-color)] rounded-full" onClick={decreaseHandler}>
             -

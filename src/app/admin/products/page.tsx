@@ -1,30 +1,12 @@
 import { getCategoryAction } from "@/actions/categories/getCategoryAction";
 import { getProductsAction } from "@/actions/products/getProductsAction";
 import { AdminProductsView } from "@/components/views/admin/products/AdminProductsView";
+import { useCategoryInfo } from "@/hooks/useCategoryInfo";
 
 const AdminProductsPage = async () => {
-  const products = await getProductsAction();
+  let products = await getProductsAction(true);
 
-  if (products) {
-    for (let product of products) {
-      if (product.categoryId != 'uncategorized') {
-        const categoryInfo = await getCategoryAction(product.categoryId);
-
-        if (categoryInfo) {
-          product.category = {
-            title: categoryInfo?.title,
-            slug: categoryInfo?.slug,
-          }
-        }
-      } else {
-        product.category = {
-          title: '<uncategorized>',
-          slug: 'uncategorized',
-        }
-      }
-                 
-    }
-  }  
+  products = await useCategoryInfo(products, true); 
 
   return <AdminProductsView data={products} />
 }

@@ -9,7 +9,7 @@ export const Tabs = ({
   className = ''
 }: {
   controls: string[],
-  content: string[],
+  content: any[],
   className?: string
 }) => {
   const [tab, setTab] = useState<number>(0);
@@ -33,7 +33,6 @@ export const Tabs = ({
                 if (tab == i) {
                   return (
                     <div key={i} className="transition-all duration-300 p-4">
-                      <h2 className="text-2xl font-semibold mb-2">{el}</h2>
                       <p className="">{el}</p>
                     </div>
                   )

@@ -16,7 +16,7 @@ export const deleteProductAction = async (id: string | undefined): Promise<iProd
 
     const deletedProduct = JSON.parse(JSON.stringify(req));    
 
-    revalidatePath('/admin/products');
+    //revalidatePath('/admin/products');
 
     return deletedProduct
   } catch(err) {

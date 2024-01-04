@@ -5,6 +5,7 @@ import ProductsModel from "@/db/models/ProductsModel";
 import { imageSaveService } from "@/services/imageSaveService";
 import { iProduct } from "@/types";
 import { revalidatePath } from "next/cache";
+import { useCorrectUrl } from "@/hooks/useCorrectUrl"
 
 export const updateProductAction = async (id: string | undefined, data: any): Promise<iProduct | undefined> => {
   try {
@@ -13,9 +14,10 @@ export const updateProductAction = async (id: string | undefined, data: any): Pr
     await DB_CONNECT();
 
     const { title, description, chars, categoryId, thumb, price, count, status, slug } = Object.fromEntries(data) as any;
+    const newSlug = useCorrectUrl(slug);
     let productThumb = '';
 
-    const candidate = await ProductsModel.findOne({ slug });
+    const candidate = await ProductsModel.findOne({ slug: newSlug });
 
     if (candidate && candidate.id !== id) {
       console.log('Slug is already exists!');
@@ -35,9 +37,10 @@ export const updateProductAction = async (id: string | undefined, data: any): Pr
       title,
       description, 
       chars, 
-      categoryId: categoryId, 
+      categoryId: categoryId || 'uncategorized',
       price, 
       count,
+      slug: newSlug,
       status: !!+status
     }
 
@@ -47,7 +50,7 @@ export const updateProductAction = async (id: string | undefined, data: any): Pr
 
     const updatedProduct = JSON.parse(JSON.stringify(req));    
 
-    revalidatePath('/admin/products');
+    //revalidatePath('/admin/products');
 
     return updatedProduct
   } catch(err) {

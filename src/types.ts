@@ -5,14 +5,16 @@ export interface iProduct {
   categoryId: string,
   category?: {
     title: string,
-    slug: string
+    slug: string,
+    status: boolean
   }
-  thumb?: string,
+  thumb: string,
   price: string,
   count: number,
   _id?: string,
   status: boolean,
-  slug: string
+  slug: string,
+  quantity?: number
 }
 
 export interface iCategory {
@@ -22,4 +24,10 @@ export interface iCategory {
   thumb: string,
   status: boolean,
   _id?: string
+}
+
+export interface iMenu {
+  title: string,
+  slug: string,
+  thumb?: string
 }

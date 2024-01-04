@@ -1,32 +1,24 @@
-
-import { ProductCard } from "../cards/ProductCard";
 import { Tabs } from "../ui/Tabs";
 import { HeroProduct } from "../hero/HeroProduct";
+import { iProduct } from "@/types";
+import { ProductsList } from "../layout/ProductsList";
 
-export const ProductView = () => {
+export const ProductView = ({ 
+  data: { currentProduct, products } 
+}: {
+  data: { currentProduct: iProduct, products: iProduct[] } 
+}) => {
+  const { description, chars } = currentProduct;
+
   const tabControls = ['About', 'Chars', 'Reviews'];
-  const tabContent = ['About', 'Chars', 'Reviews'];
+  const tabContent = [description, chars, 'Reviews'];    
 
   return (
     <>
       <div className="container mx-auto mt-20">
-        <HeroProduct />
-
+        <HeroProduct data={currentProduct} />
         <Tabs controls={tabControls} content={tabContent} className="mt-10" />
-
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold">Featured products</h2>
-        </div>
-        <div className="grid grid-cols-5 gap-6 mt-4">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </div>
+        <ProductsList title="Latest products" products={products} />
     </div>
     </>
   )

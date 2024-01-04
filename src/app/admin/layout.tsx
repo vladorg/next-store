@@ -1,16 +1,12 @@
-import { HeroMenu } from '@/components/ui/menus/HeroMenu'
+import { MainMenu } from '@/components/ui/menus/MainMenu'
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const menus = [
-    { title: "Dashboard", href: "/admin" }, 
-    { title: "Products", href: "/admin/products" }, 
-    { title: "Categories", href: "/admin/categories" }, 
-    { title: "Orders", href: "/admin/orders" }, 
-    { title: "Members", href: "/admin/members" }, 
+    { title: "Dashboard", slug: "/admin" }, 
+    { title: "Products", slug: "/admin/products" }, 
+    { title: "Categories", slug: "/admin/categories" }, 
+    { title: "Orders", slug: "/admin/orders" }, 
+    { title: "Members", slug: "/admin/members" }, 
   ];  
 
   return (
@@ -18,7 +14,7 @@ export default function AdminLayout({
       <h1 className="text-3xl">Admin panel</h1>
       <div className="flex mt-10 gap-x-6">
         <div className="w-[400px]">
-          <HeroMenu menus={menus} />
+          <MainMenu menus={menus} />
         </div>
         <div className="w-full">
           {children}
@@ -27,3 +23,5 @@ export default function AdminLayout({
     </>
   )
 }
+
+export default AdminLayout;

@@ -3,7 +3,7 @@ import { AdminCategoriesEditView } from "@/components/views/admin/categories/Adm
 import { notFound } from "next/navigation";
 
 const AdminCategoriesEditPage = async (props: any) => {
-  const category = await getCategoryAction(props.params.id);
+  const category = await getCategoryAction(props.params.id, true);
 
   if (!category) notFound();
 

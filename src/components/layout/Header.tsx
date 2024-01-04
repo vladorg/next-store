@@ -5,6 +5,7 @@ import { IconPiece } from "../ui/icons/IconPiece"
 import { IconSearch } from "../ui/icons/IconSearch"
 import { IconUser } from "../ui/icons/IconUser"
 import { IconSettings } from "../ui/icons/IconSettings"
+import { Cart } from "../ui/Cart"
 
 
 export const Header = () => {
@@ -22,7 +23,7 @@ export const Header = () => {
             <IconSearch />
           </button>
         </div>
-        <div className="ml-auto flex">
+        <div className="ml-auto flex relative">
           <Link href="/admin" className="mr-8 hover:bg-[var(--hover-color)] rounded-full p-2">
             <IconSettings />
           </Link>
@@ -32,9 +33,10 @@ export const Header = () => {
           <Link href="/account" className="mr-8 hover:bg-[var(--hover-color)] rounded-full p-2">
             <IconUser />
           </Link>
-          <Link href="/cart" className="hover:bg-[var(--hover-color)] rounded-full p-2">
+          
+          <Cart className="relative rounded-full p-2">
             <IconCart />
-          </Link>
+          </Cart>
         </div>
       </div>
     </header>

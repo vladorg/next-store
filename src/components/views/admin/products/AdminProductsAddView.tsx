@@ -84,7 +84,7 @@ export const AdminProductsAddView = ({ data }: { data: iCategory[] | undefined }
                   Category
                 </label>
                 <select defaultValue="0" name="categoryId" id="categoryId" className={inputClassNames}>
-                  <option value="0">No category</option>
+                  <option value="">No category</option>
                   { data && data.map(({ title, _id }) => (
                     <option key={_id} value={_id}>{title}</option>
                   )) }
@@ -163,7 +163,7 @@ export const AdminProductsAddView = ({ data }: { data: iCategory[] | undefined }
                 </select>
               </div>
               <div>
-                <button className="bg-[var(--primary-color)] hover:bg-[var(--hover-color)] py-2 px-3 rounded-md" >
+                <button className="bg-[var(--darkGreen-color)] hover:bg-[var(--hover-color)] py-2 px-3 rounded-md" >
                   Add
                 </button>
                 <Link href="/admin/products" type="button" className="bg-[var(--primary-color)] hover:bg-[var(--hover-color)] py-2 px-3 rounded-md ml-4" >
