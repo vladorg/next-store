@@ -12,10 +12,10 @@ export const lsLoadCartService = async (): Promise<iProduct[] | []> => {
         let product = await getProductAction(parsed_product?.id);
 
         if (product) {
-          product.quantity = +parsed_product[1];
+          product.quantity = +parsed_product.quantity;
           product ? products.push(product) : null;
         }                  
-      }        
+      }       
 
       return products
     } else {

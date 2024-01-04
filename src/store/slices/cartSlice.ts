@@ -4,12 +4,14 @@ import { addProductToCart, deleteProductFromCart, loadCart } from '../actions/ca
 
 interface iCartState {
   products: iProduct[],
-  error: boolean
+  error: boolean,
+  loading: boolean
 }
 
 const initialState: iCartState = {
   products: [],
-  error: false
+  error: false,
+  loading: false
 }
 
 export const cartSlice = createSlice({
@@ -18,14 +20,20 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(loadCart.pending, (state, action) => { 
+        state.loading = true
+        state.error = false
+      })
       .addCase(loadCart.rejected, (state, action) => { 
         state.error = true
+        state.loading = false
       })
       .addCase(loadCart.fulfilled, (state, action) => { 
         state.error = false
+        state.loading = false
         state.products = action.payload;
       })
-      .addCase(addProductToCart.fulfilled, (state, action) => {
+      .addCase(addProductToCart.fulfilled, (state, action) => {        
         state.products = action.payload;      
       })
       .addCase(deleteProductFromCart.fulfilled, (state, action) => {

@@ -10,7 +10,7 @@ export const loadCart = createAsyncThunk(
   'loadCart',
   async (payload, thunkAPI) => {
     try {
-      const products = await lsLoadCartService();
+      const products = await lsLoadCartService(); 
 
       return products
     } catch(err) {
@@ -23,17 +23,17 @@ export const loadCart = createAsyncThunk(
 export const addProductToCart = createAsyncThunk<iProduct[], { id: string, quantity?: number }, {}>(
   'addProductToCart', 
   async ({ id, quantity }, thunkAPI) => {
-    try { 
-      const product = await getProductAction(id);       
+    try {      
+      const product = await getProductAction(id);
 
       if (!product) throw 'cannot find product!'
       
       const state = thunkAPI.getState() as RootState;
       let newProducts = [...state.cart.products];
 
-      const add = lsAddProductCartService(id, quantity);
+      const add = lsAddProductCartService(id, quantity);      
 
-      if (add) newProducts.push({...product, quantity: quantity || 1})     
+      if (add) newProducts.push({...product, quantity: quantity || 1})            
       
       return newProducts
     } catch(err) {

@@ -5,7 +5,7 @@ import { IconPiece } from "../ui/icons/IconPiece"
 import { IconSearch } from "../ui/icons/IconSearch"
 import { IconUser } from "../ui/icons/IconUser"
 import { IconSettings } from "../ui/icons/IconSettings"
-import { Cart } from "../ui/Cart"
+import { Cart } from "../ui/cart/Cart"
 
 
 export const Header = () => {
