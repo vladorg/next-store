@@ -41,7 +41,7 @@ export const addCategoryAction = async (data: FormData): Promise<iCategory | und
 
     const newCategory = JSON.parse(JSON.stringify(req));    
 
-    //revalidatePath('/admin/categories');
+    revalidatePath('/', 'layout');
     
     return newCategory
   } catch(err) {

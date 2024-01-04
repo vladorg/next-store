@@ -45,7 +45,7 @@ export const addProductAction = async (data: FormData): Promise<iProduct | undef
 
     const newProduct = JSON.parse(JSON.stringify(req));    
 
-    //revalidatePath('/admin/products');
+    revalidatePath('/', 'layout');
     
     return newProduct
   } catch(err) {

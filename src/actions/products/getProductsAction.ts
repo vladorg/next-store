@@ -1,3 +1,5 @@
+'use server'
+
 import { DB_CONNECT } from "@/db"
 import ProductsModel from '@/db/models/ProductsModel'
 import { iProduct } from "@/types"
@@ -12,7 +14,7 @@ export const getProductsAction = async (showDisabled: boolean = false): Promise<
 
     const products = JSON.parse(JSON.stringify(req)); 
     
-    //revalidatePath('/admin/products');
+    // revalidatePath('/', 'layout');
     
     return products
   } catch(err) {

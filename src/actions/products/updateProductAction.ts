@@ -50,7 +50,7 @@ export const updateProductAction = async (id: string | undefined, data: any): Pr
 
     const updatedProduct = JSON.parse(JSON.stringify(req));    
 
-    //revalidatePath('/admin/products');
+    revalidatePath('/', 'layout');
 
     return updatedProduct
   } catch(err) {

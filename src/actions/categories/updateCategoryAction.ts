@@ -46,7 +46,7 @@ export const updateCategoryAction = async (id: string | undefined, data: any): P
 
     const updatedCategory = JSON.parse(JSON.stringify(req));    
 
-    //revalidatePath('/admin/categories');
+    revalidatePath('/', 'layout');
 
     return updatedCategory
   } catch(err) {

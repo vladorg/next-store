@@ -1,4 +1,3 @@
-import { getCategoryAction } from "@/actions/categories/getCategoryAction";
 import { getCategoryBySlugAction } from "@/actions/categories/getCategoryBySlugAction";
 import { getProductsByCategoryIdAction } from "@/actions/products/getProductsByCategoryIdAction";
 import { CategoryView } from "@/components/views/CategoryView";

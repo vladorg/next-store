@@ -15,7 +15,7 @@ export const deleteCategoryAction = async (id: string | undefined): Promise<iCat
 
     const deletedCategory = JSON.parse(JSON.stringify(req));    
 
-    //revalidatePath('/admin/categories');
+    revalidatePath('/', 'layout');
 
     return deletedCategory
   } catch(err) {
