@@ -19,7 +19,7 @@ export const Cart = ({ children, className = '' }: { children: React.ReactNode, 
   
   const cartClassNames = `${className} ${open ? 'bg-[var(--hover-color)]' : 'hover:bg-[var(--hover-color)]'}`
   const cartLoadingClassNames = loading ? 'animate-spin pointer-events-none' : '';
-  const controlsClassNames = 'bg-[var(--secondary-color)] hover:bg-[var(--hover-color)] py-2 px-3 rounded-md inline-flex items-center';
+  const controlsClassNames = 'bg-[var(--secondary-color)] hover:bg-[var(--hover-color)] py-2 px-3 rounded-md inline-flex items-center';  
 
   const forceLoadCart = async () => {
     setOpen(false);

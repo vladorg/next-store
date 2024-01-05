@@ -31,3 +31,10 @@ export interface iMenu {
   slug: string,
   thumb?: string
 }
+
+export interface iSpecialCard {
+  title: string,
+  price: number,
+  thumb: string,
+  direction: string
+}

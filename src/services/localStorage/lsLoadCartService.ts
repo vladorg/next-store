@@ -1,4 +1,5 @@
 import { getProductAction } from "@/actions/products/getProductAction";
+import { useCategoryInfo } from "@/hooks/useCategoryInfo";
 import { iProduct } from "@/types";
 
 export const lsLoadCartService = async (): Promise<iProduct[] | []> => {
@@ -15,7 +16,9 @@ export const lsLoadCartService = async (): Promise<iProduct[] | []> => {
           product.quantity = +parsed_product.quantity;
           product ? products.push(product) : null;
         }                  
-      }       
+      }      
+      
+      products = await useCategoryInfo(products);
 
       return products
     } else {

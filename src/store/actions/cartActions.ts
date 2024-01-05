@@ -5,6 +5,7 @@ import { iProduct } from '@/types';
 import { lsAddProductCartService } from '@/services/localStorage/lsAddProductCartService';
 import { lsRemoveProductCartService } from '@/services/localStorage/lsRemoveProductCartService';
 import { lsLoadCartService } from '@/services/localStorage/lsLoadCartService';
+import { useCategoryInfo } from '@/hooks/useCategoryInfo';
 
 export const loadCart = createAsyncThunk(
   'loadCart',
@@ -24,16 +25,20 @@ export const addProductToCart = createAsyncThunk<iProduct[], { id: string, quant
   'addProductToCart', 
   async ({ id, quantity }, thunkAPI) => {
     try {      
-      const product = await getProductAction(id);
+      let product = await getProductAction(id);
 
       if (!product) throw 'cannot find product!'
       
       const state = thunkAPI.getState() as RootState;
+      
       let newProducts = [...state.cart.products];
+
+      const getCategoryInfo = await useCategoryInfo([product]);
+      product = getCategoryInfo[0];
 
       const add = lsAddProductCartService(id, quantity);      
 
-      if (add) newProducts.push({...product, quantity: quantity || 1})            
+      if (add) newProducts.push({...product, quantity: quantity || 1})       
       
       return newProducts
     } catch(err) {
